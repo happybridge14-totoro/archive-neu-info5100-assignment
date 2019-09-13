@@ -98,7 +98,7 @@ Class Timer {
     void function start() {
         //do some kind of loop, and record the loop
         (.......) {
-            this.current ++;
+            this.current++;
             if (this.current++ >= maxTime) {
                 this.current = 0;
             }
