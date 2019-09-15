@@ -94,24 +94,32 @@ Class VenderMachine {
             int quarterToReturn = change / 25;
             if (quarterToReturn > findRemainsbyCoinName("quarter")) {
                 message = "Not enough change. Please contact our staff for help. XXX-XXX-XXXX";
+            } else if (quarterToReturn > 0) {
+                coinsLeft.set("quarter", findRemainsbyCoinName("quarter") - quarterToReturn);
             }
             change = change % 25;
 
             int dimToReturn = change / 10;
             if (dimToReturn > findRemainsbyCoinName("dim")) {
                 message = "Not enough change. Please contact our staff for help. XXX-XXX-XXXX";
+            } else if (quarterToReturn > 0) {
+                coinsLeft.set("dim", findRemainsbyCoinName("dim") - dimToReturn);
             }
             change = change % 10;
 
             int nickelToReturn = change / 5;
-            if (dimToReturn > findRemainsbyCoinName("nickel")) {
+            if (nickelToReturn > findRemainsbyCoinName("nickel")) {
                 message = "Not enough change. Please contact our staff for help. XXX-XXX-XXXX";
+            } else if (quarterToReturn > 0) {
+                coinsLeft.set("nickel", findRemainsbyCoinName("nickel") - nickelToReturn);
             }
             change = change % 5;
 
             int centToReturn = change;
             if (centToReturn > findRemainsbyCoinName("cent")) {
                 message = "Not enough change. Please contact our staff for help. XXX-XXX-XXXX";
+            } else if (centToReturn > 0) {
+                coinsLeft.set("cent", findRemainsbyCoinName("cent") - centToReturn);
             }
             // Pay the change
             ......
