@@ -1,3 +1,5 @@
+// Only used for testing
+import java.util.Arrays;
 /**
  * Complete all TODO
  * Submit before 22nd September 12:00pm
@@ -28,6 +30,18 @@ public class Assignment2 {
         private String email;
         private String designation;
         private String org;
+
+        // For testing
+        // Another constructor used for deep clone.
+        Employee(Employee target) {
+            this.firstName = target.firstName;
+            this.lastName = target.lastName;
+            this.age = target.age;
+            this.salary = target.salary;
+            this.email = target.email;
+            this.designation = target.designation;
+            this.org = target.org;
+        }
 
         Employee(String firstName, String lastName, int age, int salary, String email, String designation, String org) {
             // @TODO
@@ -165,7 +179,6 @@ public class Assignment2 {
                                              Assignment2.ORGANISATION
                                          );
         }
-
     }
 
     public int sumOfSalariesGreaterThanFiveThousands() {
@@ -185,6 +198,12 @@ public class Assignment2 {
         // @TODO
         // swap salary of even numbered employee with odd numbered employee
         // swap salary of employees[0] with employees[1], employees[2] with employees[3] and so on..
+        for (int i = 0; i < this.employees.length - 1; i += 2) {
+            int salary1 = this.employees[i].getSalary();
+            int salary2 = this.employees[i + 1].getSalary();
+            this.employees[i].setSalary(salary2);
+            this.employees[i + 1].setSalary(salary1);
+        }
     }
 
     public void customSort() {
@@ -196,17 +215,99 @@ public class Assignment2 {
 
         // @TODO
         // sort employees array on the basis of age and print
-
         for(Employee employee : employees) {
             System.out.println(employee.firstName);
         }
     }
 
+    // This get method is created for testing
+    // It will create a deep clone of the private employees, so the original array won't be affected
+    public Employee[] getEmployeesClone() {
+        Employee[] clone = new Employee[10];
+        for (int i = 0; i < 10; i++) {
+            clone[i] = new Employee(this.employees[i]);
+        }
+        return clone;
+    }
+
     public static void main(String[] args) {
         Assignment2 assignment2 = new Assignment2();
         // you can verify/test your code here
+        System.out.println("Initialization:");
         assignment2.initializeEmployees();
+        System.out.println("Initialization done!");
+        System.out.println("");
+
+        // Test compareTo function
+        System.out.println("Test compareTo function");
+        System.out.println("Print original data:");
+        Employee testAry[] = assignment2.getEmployeesClone();
+        for(Employee i : testAry) {
+            System.out.print(i.getFirstName() + ": " + i.getSalary() + "  ");
+        }
+        System.out.println("");
+        Arrays.sort(testAry);
+        System.out.println("Print sort data to identify compareTo function:");
+        for(Employee i : testAry) {
+            System.out.print(i.getFirstName() + ": " + i.getSalary() + "  ");
+        }
+        System.out.println("");
+        System.out.println("");
+
+        // Test equals function
+        System.out.println("Test equals function");
+        testAry = assignment2.getEmployeesClone();
+        Employee test0 = testAry[0];
+        Employee test1 = testAry[1];
+        System.out.println(test0.getFirstName() + ", " + test1.getFirstName());
+        System.out.print(test0.getFirstName() + "==" + test1.getFirstName() + "?  ");
+        System.out.println(test0.equals(test1));
+        System.out.print(test0.getFirstName() + "==" + test0.getFirstName() + "?  ");
+        System.out.println(test0.equals(test0));
+        System.out.println("");
+
+        // Test hashCode funcion
+        System.out.println("Test hashCode function");
+        System.out.println("Print hash code for each employee:");
+        testAry = assignment2.getEmployeesClone();
+        for(Employee i : testAry) {
+            System.out.println(i.getFirstName() + ": " + i.hashCode());
+        }
+        System.out.println("");
+
+        // Test sum function
+        System.out.println("Test sum function");
+        System.out.println("The sum of salaries of employees having salary greater than 5000 is:");
         System.out.println(assignment2.sumOfSalariesGreaterThanFiveThousands());
+        System.out.println("");
+
+        // Test swap function
+        System.out.println("Test swap function");
+        System.out.println("Before swaping:");
+        testAry = assignment2.getEmployeesClone();
+        for(Employee i : testAry) {
+            System.out.print(i.getFirstName() + ": " + i.getSalary() + "  ");
+        }
+        System.out.println("");
+        ///////////////////////////////////////////
+        assignment2.swapSalaries();
+        //////////////////////////////////////////
+        System.out.println("After swaping:");
+        testAry = assignment2.getEmployeesClone();
+        for(Employee i : testAry) {
+            System.out.print(i.getFirstName() + ": " + i.getSalary() + "  ");
+        }
+        System.out.println("");
+        System.out.println("");
+
+        // Test swap function
+        // System.out.print("Original order: ");
+        // for(Employee i : this.employees) {
+        //     System.out.print(i.salary);
+        //     System.out.print(" ");
+        // }
+        // System.out.println();
+        // assignment2.customSort();
     }
 
 }
