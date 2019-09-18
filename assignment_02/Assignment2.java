@@ -206,17 +206,91 @@ public class Assignment2 {
         }
     }
 
-    public void customSort() {
+    // quick sort method
+    // It's really a graceful method
+    private int quickSortPartition(Employee[] array, int begin, int end) {
+        int counter = begin;
+        for (int i = begin; i < end; i++) {
+            if (array[i].age < array[end].age) {
+                Employee tmp = array[i];
+                array[i] = array[counter];
+                array[counter] = tmp;
+                counter++;
+            }
+        }
+        Employee tmp = array[end];
+        array[end] = array[counter];
+        array[counter] = tmp;
+        return counter;
+    }
+
+    private void quickSort(Employee[] array, int begin, int end) {
+        if (end <= begin) return;
+        int pivot = this.quickSortPartition(array, begin, end);
+        quickSort(array, begin, pivot - 1);
+        quickSort(array, pivot + 1, end);
+    }
+
+    // merge sort method
+    private void mergeSortPartition(Employee[] array, int begin, int middle, int end) {
+        if (begin == end) return;
+        int length = end - begin + 1;
+        Employee tmpArrayLeft[] = new Employee[(middle - begin  + 1)];
+        Employee tmpArrayRight[] = new Employee[(end - middle)];
+
+        for (int i = 0; i < middle - begin  + 1; i++) {
+            tmpArrayLeft[i] = array[begin + i];
+        }
+        for (int i = 0; i < end - middle; i++) {
+                tmpArrayRight[i] = array[middle + 1 + i];
+        }
+        int leftI = 0;
+        int rightI = 0;
+        for (int i = 0; i < length; i++) {
+            if (leftI > tmpArrayLeft.length - 1) {
+                array[begin + i] = tmpArrayRight[rightI++];
+                continue;
+            }
+            if (rightI > tmpArrayRight.length - 1) {
+                array[begin + i] = tmpArrayLeft[leftI++];
+                continue;
+            }
+            if (tmpArrayLeft[leftI].getFirstName().compareTo(tmpArrayRight[rightI].getFirstName()) > 0) {
+                array[begin + i] = tmpArrayRight[rightI++];
+            } else {
+                array[begin + i] = tmpArrayLeft[leftI++];
+            }
+        }
+    }
+
+    private void mergeSort(Employee[] array, int begin, int end) {
+        if (begin >= end) return;
+        int mid = (end - begin) / 2;
+        mergeSort(array, begin, begin + mid);
+        mergeSort(array, begin + mid + 1, end);
+        mergeSortPartition(array, begin, begin + mid, end);
+    }
+
+    // add option param to choose sort rules
+    // Try to use two different sort methods
+    // Use merge sort for firstName
+    // Use quick sort for age
+    public void customSort(String option) {
         // @TODO
         // sort employees array on the basis of firstName and print
-        for(Employee employee : employees) {
-            System.out.println(employee.firstName);
-        }
+        // for(Employee employee : employees) {
+            // System.out.println(employee.firstName);
+        // }
 
         // @TODO
         // sort employees array on the basis of age and print
-        for(Employee employee : employees) {
-            System.out.println(employee.firstName);
+        // for(Employee employee : employees) {
+            // System.out.println(employee.firstName);
+        // }
+        if ("firstName" == option) {
+            this.mergeSort(this.employees, 0, this.employees.length - 1);
+        } else if ("age" == option) {
+            this.quickSort(this.employees, 0, this.employees.length - 1);
         }
     }
 
@@ -234,7 +308,9 @@ public class Assignment2 {
         Assignment2 assignment2 = new Assignment2();
         // you can verify/test your code here
         System.out.println("Initialization:");
+        ///////////////////not testing codes////////////////////////
         assignment2.initializeEmployees();
+        ///////////////////////////////////////////////////////////
         System.out.println("Initialization done!");
         System.out.println("");
 
@@ -289,9 +365,9 @@ public class Assignment2 {
             System.out.print(i.getFirstName() + ": " + i.getSalary() + "  ");
         }
         System.out.println("");
-        ///////////////////////////////////////////
+        ///////////////////not testing codes////////////////////////
         assignment2.swapSalaries();
-        //////////////////////////////////////////
+        ///////////////////////////////////////////////////////////
         System.out.println("After swaping:");
         testAry = assignment2.getEmployeesClone();
         for(Employee i : testAry) {
@@ -300,14 +376,40 @@ public class Assignment2 {
         System.out.println("");
         System.out.println("");
 
-        // Test swap function
-        // System.out.print("Original order: ");
-        // for(Employee i : this.employees) {
-        //     System.out.print(i.salary);
-        //     System.out.print(" ");
-        // }
-        // System.out.println();
-        // assignment2.customSort();
-    }
+        // Test sort function
+        System.out.println("Test sort function by age");
+        System.out.print("Original order: ");
+        testAry = assignment2.getEmployeesClone();
+        for(Employee i : testAry) {
+            System.out.print(i.getFirstName() + ": " + i.getAge() + "  ");
+        }
+        System.out.println();
+        ///////////////////not testing codes////////////////////////
+        assignment2.customSort("age");
+        ///////////////////////////////////////////////////////////
+        System.out.println("After swaping:");
+        testAry = assignment2.getEmployeesClone();
+        for(Employee i : testAry) {
+            System.out.print(i.getFirstName() + ": " + i.getAge() + "  ");
+        }
+        System.out.println("");
+        System.out.println("");
 
+        // Test sort function
+        System.out.println("Test sort function by firstName");
+        System.out.print("Original order: ");
+        testAry = assignment2.getEmployeesClone();
+        for(Employee i : testAry) {
+            System.out.print(i.getFirstName() + "  ");
+        }
+        System.out.println();
+        ///////////////////not testing codes////////////////////////
+        assignment2.customSort("firstName");
+        ///////////////////////////////////////////////////////////
+        System.out.println("After swaping:");
+        testAry = assignment2.getEmployeesClone();
+        for(Employee i : testAry) {
+            System.out.print(i.getFirstName() + "  ");
+        }
+    }
 }
