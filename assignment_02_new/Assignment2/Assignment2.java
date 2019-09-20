@@ -1,6 +1,4 @@
 package Assignment2;
-// Used for tax calculation
-import java.lang.Math;
 
 /**
  * Submit it on or before 22nd September 2019 , 12:00 pm
@@ -73,6 +71,7 @@ public class Assignment2 {
         }
         // The tax is following "round" rule
         // I haven't found the paper record of the rule, just following the tax calcuated from my Amazon order
+        // Maybe use BigDecimal, or Math.round()?
         tax = (int)Math.round(tax / 100.0);
         return (tax / 100.0);
     }
@@ -104,36 +103,27 @@ public class Assignment2 {
     }
 
     /*
-        Implement this method to convert String[] to employees array.
-        Ex: String[] employees = new String[]{"1,John,24,7500", "2,Hail,28,7899.90"};
-        This String array of length 2 contains 2 employees in form of string, where
-        id = 1
-        firstName=John
-        age=24
-        salary=7500
-        convert each string to employee object.
-        Hint: Use String methods. Refer : https://docs.oracle.com/javase/7/docs/api/java/lang/String.html
-     */
-    public Employee[] createEmployees(String[] employeesStr) {
-        Employee[] employees = new Employee[employeesStr.length];
-        // @TODO
-        for (int i = 0; i < employees.length; i++) {
-            String strAry[] = employeesStr[i].split(",");
-            employees[i] = new Employee(Integer.parseInt(strAry[0]),
-                                    strAry[1],
-                                    Integer.parseInt(strAry[2]),
-                                    Double.parseDouble(strAry[3]));
-        }
-        return employees;
-    }
-
-    /*
         Implement this method to reverse firstName of employee.
         Ex. Before: employee.getFirstName() -> "John"
         After : employee.getFirstName() -> "nhoJ"
      */
     public void reverseFirstName(Employee employee) {
         // @TODO
+        // Reverse a string is way too complicated when Unicode and other kind of codes are considered
+        // java.text.Normalizer may be a good method, but I don't know how to use it...
+        // Implement the method with StringBuffer and without StringBuffer
+
+        // Native version
+        String originalName = employee.getFirstName();
+        int length = originalName.length();
+        char tmpStr[] = new char[length];
+        for (int i = 0; i < length; i++) {
+            tmpStr[length - 1 - i] = originalName.charAt(i);
+        }
+        employee.setFirstName(new String(tmpStr));
+
+        // StringBuffer version
+        // employee.setFirstName(new StringBuffer(employee.getFirstName()).reverse().toString());
     }
 
     /*
@@ -142,9 +132,51 @@ public class Assignment2 {
         Ex: employee.getFirstName() -> "ha8l" == true
         employee.getFirstName() -> "hail" == false
      */
-    public void isContainDigit(Employee employee) {
+    public boolean isContainDigit(Employee employee) {
+        // Change the return value from void to boolean;
+        // @TODO
+        // Using regex is the best way, or you have to compare to the char code.
+        return employee.getFirstName().matches(".*\\d+.*");
+    }
+
+    /*
+       Write a method to raise an employee's salary to three times of his/her original salary.
+       Eg: original salary was 1000/month. After using this method, the salary is 3000/month.
+       DO NOT change the input in this method.
+       Try to add a new method in Employee class: public void raiseSalary(double byPercent)
+       Call this new method.
+    */
+    public void raiseSalary(double byPercent) {
+
+    }
+    public void tripleSalary(Employee employee) {
         // @TODO
     }
+
+   //Additional question for extra credit
+   /*
+       Implement this method to convert String[] to employees array.
+       Ex: String[] employees = new String[]{"1,John,24,7500", "2,Hail,28,7899.90"};
+       This String array of length 2 contains 2 employees in form of string, where
+       id = 1
+       firstName=John
+       age=24
+       salary=7500
+       convert each string to employee object.
+       Hint: Use String methods. Refer : https://docs.oracle.com/javase/7/docs/api/java/lang/String.html
+    */
+   public Employee[] createEmployees(String[] employeesStr) {
+       Employee[] employees = new Employee[employeesStr.length];
+       // @TODO
+       for (int i = 0; i < employees.length; i++) {
+           String strAry[] = employeesStr[i].split(",");
+           employees[i] = new Employee(Integer.parseInt(strAry[0]),
+                                   strAry[1],
+                                   Integer.parseInt(strAry[2]),
+                                   Double.parseDouble(strAry[3]));
+       }
+       return employees;
+   }
 
     public static void main(String args[]) {
         // Test data
@@ -211,5 +243,20 @@ public class Assignment2 {
         System.out.println("Test employeesAgeGreaterThan50:(expect 2)");
         System.out.println(mainObj.employeesAgeGreaterThan50(employeesArray));
         System.out.println();
+        // Test sway function
+        System.out.println("Test reverseFirstName:");
+        System.out.println("Before reversing:");
+        System.out.println("First employee:id-" + employeesArray[9].getId() + ",firstName-" + employeesArray[9].getFirstName());
+        mainObj.reverseFirstName(employeesArray[9]);
+        System.out.println("After reversing:");
+        System.out.println("First employee:id-" + employeesArray[9].getId() + ",firstName-" + employeesArray[9].getFirstName());
+        // Test isContainDigit function
+        System.out.println("Test isContainDigit:");
+        System.out.println("Employee:id-" + employeesArray[3].getId() + ",firstName-" + employeesArray[3].getFirstName());
+        System.out.println(mainObj.isContainDigit(employeesArray[3]));
+        System.out.println("Employee:id-" + employeesArray[4].getId() + ",firstName-" + employeesArray[4].getFirstName());
+        System.out.println(mainObj.isContainDigit(employeesArray[4]));
+        System.out.println();
+
     }
 }
