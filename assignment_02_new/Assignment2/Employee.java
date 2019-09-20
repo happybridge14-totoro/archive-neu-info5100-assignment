@@ -44,4 +44,8 @@ public class Employee {
     public void setSalary(double salary) {
         this.salary = salary;
     }
+
+    public void raiseSalary(double byPercent) {
+        this.salary = this.salary * byPercent / 100;
+    }
 }

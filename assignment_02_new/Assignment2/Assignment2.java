@@ -114,16 +114,16 @@ public class Assignment2 {
         // Implement the method with StringBuffer and without StringBuffer
 
         // Native version
-        String originalName = employee.getFirstName();
-        int length = originalName.length();
-        char tmpStr[] = new char[length];
-        for (int i = 0; i < length; i++) {
-            tmpStr[length - 1 - i] = originalName.charAt(i);
-        }
-        employee.setFirstName(new String(tmpStr));
+        // String originalName = employee.getFirstName();
+        // int length = originalName.length();
+        // char tmpStr[] = new char[length];
+        // for (int i = 0; i < length; i++) {
+        //     tmpStr[length - 1 - i] = originalName.charAt(i);
+        // }
+        // employee.setFirstName(new String(tmpStr));
 
         // StringBuffer version
-        // employee.setFirstName(new StringBuffer(employee.getFirstName()).reverse().toString());
+        employee.setFirstName(new StringBuffer(employee.getFirstName()).reverse().toString());
     }
 
     /*
@@ -132,11 +132,11 @@ public class Assignment2 {
         Ex: employee.getFirstName() -> "ha8l" == true
         employee.getFirstName() -> "hail" == false
      */
-    public boolean isContainDigit(Employee employee) {
+    public void isContainDigit(Employee employee) {
         // Change the return value from void to boolean;
         // @TODO
         // Using regex is the best way, or you have to compare to the char code.
-        return employee.getFirstName().matches(".*\\d+.*");
+        System.out.println(employee.getFirstName().matches(".*\\d+.*"));
     }
 
     /*
@@ -146,11 +146,9 @@ public class Assignment2 {
        Try to add a new method in Employee class: public void raiseSalary(double byPercent)
        Call this new method.
     */
-    public void raiseSalary(double byPercent) {
-
-    }
     public void tripleSalary(Employee employee) {
         // @TODO
+        employee.raiseSalary(300);
     }
 
    //Additional question for extra credit
@@ -250,13 +248,19 @@ public class Assignment2 {
         mainObj.reverseFirstName(employeesArray[9]);
         System.out.println("After reversing:");
         System.out.println("First employee:id-" + employeesArray[9].getId() + ",firstName-" + employeesArray[9].getFirstName());
+        System.out.println();
         // Test isContainDigit function
         System.out.println("Test isContainDigit:");
         System.out.println("Employee:id-" + employeesArray[3].getId() + ",firstName-" + employeesArray[3].getFirstName());
-        System.out.println(mainObj.isContainDigit(employeesArray[3]));
+        mainObj.isContainDigit(employeesArray[3]);
         System.out.println("Employee:id-" + employeesArray[4].getId() + ",firstName-" + employeesArray[4].getFirstName());
-        System.out.println(mainObj.isContainDigit(employeesArray[4]));
+        mainObj.isContainDigit(employeesArray[4]);
         System.out.println();
-
+        // Test tripleSalary function
+        System.out.println("Test tripleSalary:");
+        System.out.println("Employee:id-" + employeesArray[11].getId() + ",firstName-" + employeesArray[11].getFirstName() + ",salary-" + employeesArray[11].getSalary());
+        mainObj.tripleSalary(employeesArray[11]);
+        System.out.println("Employee:id-" + employeesArray[11].getId() + ",firstName-" + employeesArray[11].getFirstName() + ",salary-" + employeesArray[11].getSalary());
+        System.out.println();
     }
 }
