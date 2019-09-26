@@ -220,7 +220,6 @@ class Course {
 
     // Q7. Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
     //leetcode 54
-    //My i
     public int[] spiralOrder(int[][] matrix) {
         int[][] rules = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
         int direction = 0;
