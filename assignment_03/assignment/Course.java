@@ -223,7 +223,7 @@ class Course {
     //My i
     public int[] spiralOrder(int[][] matrix) {
         int[][] rules = new int[][]{{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-        int direction = 3;
+        int direction = 0;
         int rows = matrix.length;
         int columns = matrix[0].length;
         int length = columns * rows;
@@ -234,25 +234,22 @@ class Course {
         int right = columns - 1;
         int top = 0;
         int bottom = rows - 1;
-        for (int i = 0; i < columns * rows; i++) {
+        boolean[][] occurpied = new boolean[rows][columns];
+        for (int i = 0; i < length; i++) {
             result[i] = matrix[currentY][currentX];
-                if ((direction == 0 && (currentX + rules[direction][0]) > right) ||
-                    (direction == 2 && (currentX + rules[direction][0]) < left) ||
-                    (direction == 1 && (currentY + rules[direction][1]) > bottom) ||
-                    (direction == 3 && (currentY + rules[direction][1]) < top)
+            occurpied[currentY][currentX] = true;
+            int futureX = currentX + rules[direction][0];
+            int futureY = currentY + rules[direction][1];
+            if (futureX < left ||
+                futureX > right ||
+                futureY < top ||
+                futureY > bottom ||
+                occurpied[futureY][futureX]
                 ) {
-                    direction = ++direction % 4;
-                }
+                direction = ++direction % 4;
+            }
             currentX += rules[direction][0];
             currentY += rules[direction][1];
-            if (currentX == left && currentY == top + 1 && i != columns * rows - 1) {
-                if (++left < right) {
-                    right--;
-                }
-                if (++top < bottom) {
-                    bottom--;
-                }
-            }
         }
         return result;
     }
