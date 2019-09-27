@@ -121,10 +121,16 @@ class Course {
             this.studentIds[0] = studentId;
         } else {
             int length = this.studentIds.length;
-            int[] targetAry = new int[length + 1];
-            System.arraycopy(this.studentIds, 0, targetAry, 0, length);
-            this.studentIds = targetAry;
-            this.studentIds[length] = studentId;
+            if (length >= this.maxCapacity) {
+                this.studentIds = this.removeDuplicates(this.studentIds);
+            }
+            if (this.studentIds.length < this.maxCapacity)
+            {
+                int[] targetAry = new int[length + 1];
+                System.arraycopy(this.studentIds, 0, targetAry, 0, length);
+                this.studentIds = targetAry;
+                this.studentIds[length] = studentId;
+            }
         }
     }
 
@@ -145,7 +151,7 @@ class Course {
             // }
             // return retAry;
 
-            // Using stream is may be the best way.
+            // Using stream maybe is the best way.
             return Arrays.stream(studentIds).distinct().toArray();
         } else {
             return null;
@@ -284,6 +290,7 @@ class Course {
     static public void main(String args[]) {
         System.out.println("Write a Java class named 'Course'");
         Course courseTest = new Course(1);
+        courseTest.setMaxCapcity(10);
         System.out.println(courseTest);
         System.out.println();
 
