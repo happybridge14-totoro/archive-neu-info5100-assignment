@@ -9,4 +9,7 @@ class IceCream extends DessertItem {
     public int getCost() {
         return this.cost;
     }
+    public String getExtraInfo() {
+        return null;
+    }
 }

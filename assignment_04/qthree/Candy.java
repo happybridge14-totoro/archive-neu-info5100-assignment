@@ -13,11 +13,11 @@ class Candy extends DessertItem {
     public int getCost() {
         return (int)Math.round(weight * pricePerPound);
     }
-    public String getUnitInfo() {
+    public String getExtraInfo() {
         StringBuilder sb = new StringBuilder();
         sb.append(weight);
         sb.append(" lbs. @ ");
-        sb.append(pricePerPound);
+        sb.append(pricePerPound / 100);
         sb.append(" /lb.");
         return sb.toString();
     }

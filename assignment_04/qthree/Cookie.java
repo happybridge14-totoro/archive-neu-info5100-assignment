@@ -13,12 +13,12 @@ public class Cookie extends DessertItem {
     public int getCost() {
         return (int)Math.round(pricePerDozen * number / 12);
     }
-    public String getUnitInfo() {
+    public String getExtraInfo() {
         StringBuilder sb = new StringBuilder();
-        sb.append(number);
+        sb.append(this.number);
         sb.append(" @ ");
-        sb.append(pricePerPound);
-        sb.append(" /lb.");
+        sb.append(this.pricePerDozen / 100);
+        sb.append(" /dz.");
         return sb.toString();
     }
 }

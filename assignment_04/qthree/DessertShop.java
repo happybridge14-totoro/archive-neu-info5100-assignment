@@ -10,7 +10,9 @@ public class DessertShop {
     }
     public String cents2dollarsAndCentsmethod(int cents) {
         StringBuilder tmp = new StringBuilder();
-        tmp.append(cents / 100);
+        if (cents / 100 > 0) {
+            tmp.append(cents / 100);
+        }
         tmp.append(".");
         if (cents % 100 < 10) {
             tmp.append("0");

@@ -13,4 +13,7 @@ class Sundae extends IceCream {
     public int getCost() {
         return super.getCost() + this.toppingCost;
     }
+    public String getExtraInfo() {
+        return this.toppingName + " Sundao with";
+    }
 }

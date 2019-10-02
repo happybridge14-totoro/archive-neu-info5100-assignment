@@ -7,5 +7,5 @@ abstract class DessertItem {
         return this.name;
     }
     abstract int getCost();
-    abstract String getUnitInfo();
+    abstract String getExtraInfo();
 }
