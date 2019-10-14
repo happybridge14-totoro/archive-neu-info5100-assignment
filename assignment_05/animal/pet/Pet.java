@@ -12,7 +12,7 @@ public class Pet implements Boardable{
   private String name;
   private String ownerName;
   private String color;
-  int sex;
+  private int sex;
   private LocalDate boardingStartDate;
   private LocalDate boardingEndDate;
 
