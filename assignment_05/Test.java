@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import animal.cat.Cat;
+import animal.dog.Dog;
 
 class Test {
   public static void main(String[] args) {

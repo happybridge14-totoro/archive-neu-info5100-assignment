@@ -1,4 +1,7 @@
-class Dog extends Pet {
+package animal.dog;
+import animal.pet.Pet;
+
+public class Dog extends Pet {
   private String size;
   public Dog(String name, String ownerName, String color, String size) {
     super(name, ownerName, color);

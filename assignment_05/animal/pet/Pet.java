@@ -1,6 +1,8 @@
+package animal.pet;
 import java.time.LocalDate;
+import animal.boardable.Boardable;
 
-class Pet implements Boardable{
+public class Pet implements Boardable{
   static public int MALE = 0;
   static public int FEMALE = 1;
   static public int SPAYED = 2;

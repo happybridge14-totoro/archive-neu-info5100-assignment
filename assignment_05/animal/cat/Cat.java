@@ -1,4 +1,6 @@
-class Cat extends Pet {
+package animal.cat;
+import animal.pet.Pet;
+public class Cat extends Pet {
   private String hairLength;
   public Cat(String name, String ownerName, String color, String hairLength) {
     super(name, ownerName, color);
