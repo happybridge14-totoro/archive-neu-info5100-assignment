@@ -1,5 +1,4 @@
 package q5;
-import java.util.*;
 class MyIntHashMap {
   private MyArrayListItem[] buckets;
   public MyIntHashMap() {
