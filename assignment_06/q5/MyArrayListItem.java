@@ -2,13 +2,11 @@ package q5;
 
 class MyArrayListItem {
   private MyArrayListItem next;
-  private MyArrayListItem pre;
   private int key;
   private int value;
-  public MyArrayListItem(int key,int value, MyArrayListItem pre) {
+  public MyArrayListItem(int key,int value) {
     this.key = key;
     this.value = value;
-    this.pre = pre;
     this.next = null;
   }
   public int getKey() {
@@ -23,13 +21,7 @@ class MyArrayListItem {
   public MyArrayListItem getNext() {
     return next;
   }
-  public MyArrayListItem getPre() {
-    return pre;
-  }
   public void setNext(MyArrayListItem next) {
     this.next = next;
-  }
-  public void setPre(MyArrayListItem pre) {
-    this.pre = pre;
   }
 }

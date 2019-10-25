@@ -11,7 +11,7 @@ class MyIntHashMap {
     int hashKey = getHashKey(key);
     MyArrayListItem head = this.buckets[hashKey];
     if (head == null) {
-      this.buckets[hashKey] = new MyArrayListItem(key, value, null);
+      this.buckets[hashKey] = new MyArrayListItem(key, value);
     } else {
       boolean foundItem = false;
       MyArrayListItem lastItem = null;
@@ -25,25 +25,24 @@ class MyIntHashMap {
         head = head.getNext();
       }
       if (!foundItem) {
-        lastItem.setNext(new MyArrayListItem(key, value, lastItem));
+        lastItem.setNext(new MyArrayListItem(key, value));
       }
     }
   }
   public void remove(int key) {
     int hashKey = getHashKey(key);
     MyArrayListItem head = this.buckets[hashKey];
+    MyArrayListItem pre = null;
     while(head != null) {
       if (head.getKey() == key) {
-        if (head.getPre() != null) {
-          head.getPre().setNext(head.getNext());
+        if (pre != null) {
+          pre.setNext(head.getNext());
         } else {
           this.buckets[hashKey] = head.getNext();
         }
-        if (head.getNext() != null) {
-          head.getNext().setPre(head.getPre());
-        }
         break;
       }
+      pre = head;
       head = head.getNext();
     }
   }
