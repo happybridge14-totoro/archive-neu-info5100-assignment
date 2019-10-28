@@ -184,7 +184,7 @@ class Atm {
                   System.out.println("):");
                   System.out.print("$");
                   String s = scanner.nextLine();
-                  if (s.matches("^\\d*\\.?\\d{0,2}")) {
+                  if (Utils.checkAmount(s)) {
                     double tmp = Double.parseDouble(s);
                     int amount = (int) (tmp * 100);
                     int totalToWithdraw = amount + this.transactionFee;
@@ -197,6 +197,7 @@ class Atm {
                     if (balance >= totalToWithdraw) {
                       if (totalToWithdraw <= this.availableAmountInMachine) {
                         balance = currentUserInfo.withdraw(totalToWithdraw);
+                        this.availableAmountInMachine -= totalToWithdraw;
                         Transaction newRecord = new Transaction(TransactionType.WITHDRAWAL, amount, this.transactionFee, balance);
                         currentUserInfo.addTransactionRecord(newRecord);
                         System.out.println("Done!");
@@ -219,7 +220,7 @@ class Atm {
                   System.out.println("Please enter the amount you want to deposit (the transaction fee is " + Utils.displayBalanceWithDolllar(this.transactionFee) + ", the mount should be greater than the transaction fee):");
                   System.out.print("$");
                   String s = scanner.nextLine();
-                  if (s.matches("^\\d*\\.?\\d{0,2}")) {
+                  if (Utils.checkAmount(s)) {
                     double tmp = Double.parseDouble(s);
                     int amount = (int) (tmp * 100);
                     int balance = currentUserInfo.getBalance();
