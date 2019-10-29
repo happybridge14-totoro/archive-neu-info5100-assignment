@@ -6,7 +6,7 @@ class MyIntHashMap {
     this.buckets = new MyArrayListItem[MAX_LENGTH];
   }
   private int getHashKey(int key) {
-    return MAX_LENGTH & key;
+    return (MAX_LENGTH - 1) & key;
   }
   public void put(int key, int value) {
     int hashKey = getHashKey(key);
