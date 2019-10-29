@@ -1,11 +1,12 @@
 package q5;
 class MyIntHashMap {
+  private final int MAX_LENGTH = 100;
   private MyArrayListItem[] buckets;
   public MyIntHashMap() {
-    this.buckets = new MyArrayListItem[10001];
+    this.buckets = new MyArrayListItem[MAX_LENGTH];
   }
   private int getHashKey(int key) {
-    return key / 100;
+    return MAX_LENGTH & key;
   }
   public void put(int key, int value) {
     int hashKey = getHashKey(key);
