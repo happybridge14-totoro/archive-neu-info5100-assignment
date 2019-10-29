@@ -32,24 +32,23 @@ class Atm {
     return this.usersInfo.get(accountNumber);
   }
 
-  private String setNewPassword(Console console) {
-    char[] passwordArray, recheckPwdAry;
+  private String readPassword(Console console, Scanner scanner) {
+      if (console == null) {
+          return scanner.nextLine();
+      } else {
+          return new String(console.readPassword(""));
+      }
+  }
+
+  private String setNewPassword(Console console, Scanner scanner) {
+    String password, recheck;
     while(true) {
       System.out.println("Please enter your new password:");
-      passwordArray = console.readPassword("");
+      password = this.readPassword(console, scanner);
       System.out.println("Please re-enter your password:");
-      recheckPwdAry = console.readPassword("");
-      boolean samePassword = true;
-      if (passwordArray.length == recheckPwdAry.length) {
-        for (int i = 0; i < passwordArray.length; i++) {
-          if(passwordArray[i] != recheckPwdAry[i]) {
-            samePassword = false;
-            break;
-          }
-        }
-      }
-      if (samePassword) {
-        return new String(passwordArray);
+      recheck = this.readPassword(console, scanner);
+      if (password.equals(recheck)) {
+        return password;
       } else {
         System.out.println("Password not match.");
       }
@@ -65,7 +64,6 @@ class Atm {
     STATUS currentStatus = STATUS.IDLE;
     String accountNumber, password, name, age, address, phone;
     Console console = System.console();
-    char[] passwordArray;
     String action;
     UserData currentUserInfo = null;
     try {
@@ -94,8 +92,7 @@ class Atm {
             currentUserInfo = checkAccountNumber(accountNumber);
             if (currentUserInfo != null) {
               System.out.println("Please enter the password:");
-              passwordArray = console.readPassword("");
-              password = new String(passwordArray);
+              password = this.readPassword(console, scanner);
               if (currentUserInfo.checkPassWord(password)) {
                 System.out.println("Welcome, " + currentUserInfo.getName() + "!");
                 statusStack.add(currentStatus);
@@ -127,7 +124,7 @@ class Atm {
             System.out.println("Please enter your bank account number:");
             accountNumber = scanner.nextLine();
             if (this.checkAccountNumber(accountNumber) == null) {
-              password = setNewPassword(console);
+              password = setNewPassword(console, scanner);
               System.out.println("Please enter your name:");
               name = scanner.nextLine();
               System.out.println("Please enter your age:");
@@ -157,7 +154,7 @@ class Atm {
                 if (currentUserInfo.checkPhoneNumber(phone)) {
                   hasError = false;
                   System.out.println("Information matches.");
-                  password = setNewPassword(console);
+                  password = setNewPassword(console, scanner);
                   currentUserInfo.updatePassWord(password);
                   System.out.println("New password set. Please login:");
                 }
@@ -189,7 +186,6 @@ class Atm {
                     int amount = (int) (tmp * 100);
                     int totalToWithdraw = amount + this.transactionFee;
                     int balance = currentUserInfo.getBalance();
-                    double dbBalance = balance / 100.0;
                     if ((tmp * 100) > Integer.MAX_VALUE) {
                       System.out.println("Amount exceeds system limit! Please enter again");
                       continue;
@@ -259,7 +255,7 @@ class Atm {
                 recordStream.close();
                 break;
               } else if(action.equals("5")) {
-                password = setNewPassword(console);
+                password = setNewPassword(console, scanner);
                 currentUserInfo.updatePassWord(password);
                 System.out.println("New password set.");
                 break;

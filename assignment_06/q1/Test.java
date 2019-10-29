@@ -7,7 +7,7 @@ class Test {
     //Add two test data here
     test.addUser("1", "1", "1", "1", "1", "1");
     test.addUser("2", "2", "2", "2", "2", "2");
-    //Main enterance
+    //Main entrance
     test.run();
   }
 }
