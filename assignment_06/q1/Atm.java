@@ -191,9 +191,9 @@ class Atm {
                       continue;
                     }
                     if (balance >= totalToWithdraw) {
-                      if (totalToWithdraw <= this.availableAmountInMachine) {
+                      if (amount <= this.availableAmountInMachine) {
                         balance = currentUserInfo.withdraw(totalToWithdraw);
-                        this.availableAmountInMachine -= totalToWithdraw;
+                        this.availableAmountInMachine -= amount;
                         Transaction newRecord = new Transaction(TransactionType.WITHDRAWAL, amount, this.transactionFee, balance);
                         currentUserInfo.addTransactionRecord(newRecord);
                         System.out.println("Done!");
@@ -226,6 +226,7 @@ class Atm {
                     }
                     if (amount > this.transactionFee) {
                       balance = currentUserInfo.deposit(amount - this.transactionFee);
+                      this.availableAmountInMachine += amount;
                       Transaction newRecord = new Transaction(TransactionType.DEPOSIT, amount, this.transactionFee, balance);
                       currentUserInfo.addTransactionRecord(newRecord);
                       System.out.println("Done!");
