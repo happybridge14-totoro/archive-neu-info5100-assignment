@@ -1,44 +1,41 @@
 package q1;
 
-import java.util.Scanner;
+import utils.FileReader;
 import java.io.FileInputStream;
-import java.io.File;
 import java.io.IOException;
 
-class Test {
+class Test extends FileReader{
+  Test(String fileName) {
+    super(fileName);
+  }
+  @Override
+  protected void parseString(StringBuilder ret, FileInputStream fileStream) throws IOException {
+    StringBuilder sentence = new StringBuilder();
+    StringBuilder word = new StringBuilder();
+    for (int i = fileStream.read(); i != -1; i = fileStream.read()) {
+      String c = Character.toString(i);
+      if (c.equals(" ")) {
+        // Space
+        sentence.insert(0, word);
+        sentence.insert(0, ' ');
+        word.setLength(0);
+      } else if (c.matches("[.?!]")) {
+        //End of a sentence
+        sentence.insert(0, word);
+        ret.append(sentence);
+        ret.append(c);
+        sentence.setLength(0);
+        word.setLength(0);
+      } else if (c.matches("[a-zA-Z0-9]")){
+        word.append(c);
+      } else {
+        ret.append(c);
+      }
+    }
+  }
   public static void main(String[] args) {
     final String FILE_NAME = "q1/input.txt";
-    File file = new File(FILE_NAME);
-    System.out.println(file.getPath());
-    System.out.println(file.getAbsolutePath());
-    try {
-      FileInputStream fileStream = new FileInputStream(file);
-      StringBuilder ret = new StringBuilder();
-      StringBuilder sentence = new StringBuilder();
-      StringBuilder tmp = new StringBuilder();
-      for (int i = fileStream.read(); i != -1; i = fileStream.read()) {
-        String c = Character.toString(i);
-        if (c.equals(" ")) {
-          // Space
-          sentence.insert(0, tmp);
-          sentence.insert(0, ' ');
-          tmp = new StringBuilder();
-        } else if (c.matches("[.?!]")) {
-          //End of a sentence
-          sentence.insert(0, tmp);
-          ret.append(sentence);
-          ret.append(c);
-          sentence = new StringBuilder();
-          tmp = new StringBuilder();
-        } else if (c.matches("[a-zA-Z0-9]")){
-          tmp.append(c);
-        } else {
-          ret.append(c);
-        }
-      }
-      System.out.println(ret.toString());
-    } catch(IOException e) {
-      System.out.println(e);
-    }
+    Test test = new Test(FILE_NAME);
+    System.out.println(test.printString());
   }
 }
