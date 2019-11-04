@@ -13,7 +13,8 @@ abstract public class FileReader {
       fileStream = new FileInputStream(file);
       this.parseString(ret, fileStream);
     } catch(IOException e) {
-      System.out.println(e);
+      System.out.println("Reading file error! File name: " + filepath);
+      System.out.println("Error detail: " + e);
     } finally {
       try { fileStream.close(); } catch (Throwable ignore) {}
     }
