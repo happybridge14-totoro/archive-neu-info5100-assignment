@@ -36,16 +36,22 @@ class Test extends FileReader{
         if (tmp.length() != 0) {
           str = tmp.toString();
         } else {
-          str = stringStack.pop();
+          if (!stringStack.empty()) {
+            str = stringStack.pop();
+          }
         }
         tmp.setLength(0);
         while(times-- > 0) {
           tmp.append(str);
         }
-        if (stringStack.empty()) {
+        if (numberStack.empty()) {
           ret.append(tmp);
         } else {
-          stringStack.push(new StringBuilder(stringStack.pop()).append(tmp).toString());
+          if (stringStack.empty()) {
+            stringStack.push(tmp.toString());
+          } else {
+            stringStack.push(new StringBuilder(stringStack.pop()).append(tmp).toString());
+          }
         }
         tmp.setLength(0);
       } else {
