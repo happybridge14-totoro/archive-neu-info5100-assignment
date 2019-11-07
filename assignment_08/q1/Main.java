@@ -14,7 +14,7 @@ public class Main extends Application {
    @Override
    public void start(Stage stage) {
       //creating label email
-      Label text1 = new Label("aaaa");
+      Label text1 = new Label("0");
 
       //Creating Buttons
       Button numButton0 = new Button("0");
@@ -120,6 +120,7 @@ public class Main extends Application {
 
       // Setting title to the Stage
       stage.setTitle("Caculator");
+      stage.setResizable(false);
 
       // Adding scene to the stage
       stage.setScene(scene);
