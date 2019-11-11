@@ -42,4 +42,5 @@
   -fx-pref-height: 60px;
   -fx-pref-width: 243px;
   -fx-alignment: bottom-right;
+  -fx-text-overrun: clip;
 }

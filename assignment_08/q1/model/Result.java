@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 public class Result {
   private StringProperty displayString;
 
-  private void setValue(double value) {
+  public void setValue(double value) {
     String s = null;
     if (value > 999999 || value < -999999) {
       s = String.format("%g", value);
@@ -20,6 +20,9 @@ public class Result {
     this.displayString.setValue(s);
   }
   public void setInputValue(String s) {
+    if (s.equals("")) {
+      s = "0";
+    }
     this.displayString.setValue(s);
   }
   public StringProperty getStringProperty() {
