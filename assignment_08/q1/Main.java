@@ -1,5 +1,8 @@
 package q1;
 
+import q1.model.*;
+import q1.controller.*;
+import q1.view.*;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,89 +13,73 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class Main extends Application {
-   private void createButtons(Button[] retAry, int count, String[] textAry, int[] posXAry, int[] posYAry) {
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 
-   }
+public class Main extends Application {
    @Override
    public void start(Stage stage) {
       //creating label email
       Label text1 = new Label("0");
       //Creating a Grid Pane
       GridPane gridPane = new GridPane();
-      final int NUMBER_BUTTON_COUNT = 11;
-      Button[] numButtons = new Button[NUMBER_BUTTON_COUNT];
+      // final String BUTTON_CLASS = "btn";
+      // final String BUTTON_NUMBER_CLASS = "number";
+      // final int NUMBER_BUTTON_COUNT = 11;
+      // Button[] numButtons = new Button[NUMBER_BUTTON_COUNT];
       final String[] NUMBER_BUTTON_TEXT = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."};
       final int[] NUMBER_BUTTON_POS_X = new int[]{0, 0, 1, 2, 0, 1, 2, 0, 1, 2, 2};
       final int[] NUMBER_BUTTON_POS_Y = new int[]{6, 5, 5, 5, 4, 4, 4, 3, 3, 3, 6};
-      for (int i = 0; i < NUMBER_BUTTON_COUNT; i++) {
-          Button numberButtton = new Button(NUMBER_BUTTON_TEXT[i]);
-          numberButtton.getStyleClass().add("btn");
-          numberButtton.getStyleClass().add("number");
+      for (int i = 0; i < NUMBER_BUTTON_TEXT.length; i++) {
+          Button numberButtton = null;
           if (i == 0) {
-              numberButtton.getStyleClass().add("large");
+              numberButtton = new WideNumberButton(NUMBER_BUTTON_TEXT[i]);
               gridPane.add(numberButtton, NUMBER_BUTTON_POS_X[i], NUMBER_BUTTON_POS_Y[i], 2, 1);
           } else {
+              numberButtton = new NumberButton(NUMBER_BUTTON_TEXT[i]);
               gridPane.add(numberButtton, NUMBER_BUTTON_POS_X[i], NUMBER_BUTTON_POS_Y[i]);
           }
-          numButtons[i] = numberButtton;
       }
-
-      Button operatorButton0 = new Button("÷");
-      Button operatorButton1 = new Button("×");
-      Button operatorButton2 = new Button("-");
-      Button operatorButton3 = new Button("+");
-      Button operatorButton4 = new Button("=");
-
-      Button functionButton0 = new Button("AC");
-      Button functionButton1 = new Button("+/-");
-      Button functionButton2 = new Button("%");
-
-
+      final String[] OPERATOR_BUTTON_TEXT = new String[]{"÷", "×", "-", "+", "="};
+      final int OPERATOR_BUTTON_POS_X = 4;
+      final int[] OPERATOR_BUTTON_POS_Y = new int[]{2, 3, 4, 5, 6};
+      final int OPERATOR_BUTTON_COUNT = 5;
+      final String BUTTON_OPERATOR_CLASS = "operator";
+      for (int i = 0; i < OPERATOR_BUTTON_TEXT.length; i++) {
+          Button operatorButtton = new OperatorButton(OPERATOR_BUTTON_TEXT[i]);
+          gridPane.add(operatorButtton, OPERATOR_BUTTON_POS_X, OPERATOR_BUTTON_POS_Y[i]);
+      }
+      final String[] FUNCTION_BUTTON_TEXT = new String[]{"AC", "+/-", "%"};
+      final int[] FUNCTION_BUTTON_POS_X = new int[]{0, 1, 2};
+      final int FUNCTION_BUTTON_POS_Y = 2;
+      for (int i = 0; i < FUNCTION_BUTTON_TEXT.length; i++) {
+          Button functionButtton = new FunctionButton(FUNCTION_BUTTON_TEXT[i]);
+          gridPane.add(functionButtton, FUNCTION_BUTTON_POS_X[i], FUNCTION_BUTTON_POS_Y);
+      }
       //Arranging all the nodes in the grid
-
-      gridPane.add(operatorButton0, 4, 2);
-      gridPane.add(operatorButton1, 4, 3);
-      gridPane.add(operatorButton2, 4, 4);
-      gridPane.add(operatorButton3, 4, 5);
-      gridPane.add(operatorButton4, 4, 6);
-
-      gridPane.add(functionButton0, 0, 2);
-      gridPane.add(functionButton1, 1, 2);
-      gridPane.add(functionButton2, 2, 2);
-
       gridPane.add(text1, 0, 0, 5, 1);
-
-      //Styling nodes
-
-      operatorButton0.getStyleClass().add("btn");
-      operatorButton0.getStyleClass().add("operator");
-      operatorButton1.getStyleClass().add("btn");
-      operatorButton1.getStyleClass().add("operator");
-      operatorButton2.getStyleClass().add("btn");
-      operatorButton2.getStyleClass().add("operator");
-      operatorButton3.getStyleClass().add("btn");
-      operatorButton3.getStyleClass().add("operator");
-      operatorButton4.getStyleClass().add("btn");
-      operatorButton4.getStyleClass().add("operator");
-
-      functionButton0.getStyleClass().add("btn");
-      functionButton0.getStyleClass().add("function");
-      functionButton1.getStyleClass().add("btn");
-      functionButton1.getStyleClass().add("function");
-      functionButton2.getStyleClass().add("btn");
-      functionButton2.getStyleClass().add("function");
-
       text1.getStyleClass().add("display");
+
+      Result result = new Result();
+      result.getStringProperty().addListener(new LabelController(text1));
 
       gridPane.getStyleClass().add("panel");
 
       // Creating a scene object
       Scene scene = new Scene(gridPane);
-      scene.getStylesheets().add("q1/css/test.css");
+      String urlString = "q1/css/test.css";
+      try {
+        urlString = getClass().getResource("css/test.css").toExternalForm();
+      } catch(Exception e) {
+        System.out.println(e);
+      }
+      // scene.getStylesheets().add(getClass().getResource("q1/css/test.css").toExternalForm());
+      scene.getStylesheets().add(urlString);
 
       // Setting title to the Stage
-      stage.setTitle("Caculator");
+      final String TITLE = "Calculator1";
+      stage.setTitle(TITLE);
 
       // Adding scene to the stage
       stage.setScene(scene);
