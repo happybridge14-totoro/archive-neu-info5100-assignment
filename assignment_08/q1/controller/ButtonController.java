@@ -54,29 +54,20 @@ public class ButtonController implements EventHandler<ActionEvent>{
       this.result.setInputValue(this.ERROR_STR);
   }
   private void calculate() {
-    double tmp;
-    if (strBuffer.length() == 0) {
-      tmp = this.cacheNumber;
-    } else {
-      tmp = getCurrentNumber();
-    }
+    double tmp = strBuffer.length() == 0 ? this.cacheNumber : this.getCurrentNumber();
     if (this.operator.equals(ButtonType.PLUS.getValueString())) {
       this.previousNumber += tmp;
-      this.result.setValue(this.previousNumber);
     } else if (this.operator.equals(ButtonType.MINUS.getValueString())){
       this.previousNumber -= tmp;
-      this.result.setValue(this.previousNumber);
     } else if (this.operator.equals(ButtonType.MULTIPLY.getValueString())){
       this.previousNumber *= tmp;
-      this.result.setValue(this.previousNumber);
     } else if (this.operator.equals(ButtonType.DIVIDE.getValueString())){
       this.previousNumber = this.previousNumber / tmp;
       this.lock = this.previousNumber == Double.POSITIVE_INFINITY || (this.previousNumber == Double.NEGATIVE_INFINITY);
-      this.result.setValue(this.previousNumber);
     } else {
       this.previousNumber = tmp == 0 ? this.previousNumber : tmp;
-      this.result.setValue(this.previousNumber);
     }
+    this.result.setValue(this.previousNumber);
     this.softReset();
   }
   public ButtonController(Result result) {

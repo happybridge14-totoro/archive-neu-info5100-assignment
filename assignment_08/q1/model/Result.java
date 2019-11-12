@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 
 public class Result {
   private StringProperty displayString;
+  private final String INIT_STR = "0";
 
   public void setValue(double value) {
     String s = null;
@@ -15,13 +16,11 @@ public class Result {
       DecimalFormat format = new DecimalFormat("0.######");
       s = format.format(value);
     }
-    // value = Double.valueOf(s);
-    // this.doubleProperty.setValue(value);
     this.displayString.setValue(s);
   }
   public void setInputValue(String s) {
     if (s.equals("")) {
-      s = "0";
+      s = INIT_STR;
     }
     this.displayString.setValue(s);
   }
@@ -29,6 +28,6 @@ public class Result {
     return this.displayString;
   }
   public Result() {
-     displayString = new SimpleStringProperty("0");
+     displayString = new SimpleStringProperty(INIT_STR);
   }
 }

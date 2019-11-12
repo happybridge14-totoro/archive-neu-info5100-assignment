@@ -52,9 +52,8 @@ public class Main extends Application {
                                                         ButtonType.MINUS,
                                                         ButtonType.PLUS,
                                                         ButtonType.EQUAL};
-      final int OPERATOR_BUTTON_POS_X = 4;
+      final int OPERATOR_BUTTON_POS_X = 3;
       final int[] OPERATOR_BUTTON_POS_Y = new int[]{2, 3, 4, 5, 6};
-      final String BUTTON_OPERATOR_CLASS = "operator";
       for (int i = 0; i < OPERATOR_BUTTON_TEXT.length; i++) {
           Button operatorButtton = new OperatorButton(OPERATOR_BUTTON_TEXT[i]);
           gridPane.add(operatorButtton, OPERATOR_BUTTON_POS_X, OPERATOR_BUTTON_POS_Y[i]);
