@@ -1,7 +1,7 @@
 package q2.controller;
 
 import q2.dataproto.ScreenType;
-import q2.model.StageData;
+import q2.model.*;
 import q2.view.*;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -16,11 +16,12 @@ import javafx.beans.value.ObservableValue;
 public class StageController implements ChangeListener<Number> {
   private Stage stage;
   private StageData data;
+  private StudentData studentData;
   private final String MENU = "Menu";
   private final String LIST = "List";
   private final String DETAIL = "Detail";
   private void refresh() {
-    stage.close();
+    // stage.close();
     GridPane gridPane = null;
     switch (this.data.getTypeValue()) {
       case ScreenType.MENU:
@@ -29,6 +30,9 @@ public class StageController implements ChangeListener<Number> {
         gridPane = menuController.getView();
         break;
       case ScreenType.DETAIL:
+        stage.setTitle(DETAIL);
+        DetailController detailController = new DetailController(data, studentData);
+        gridPane = detailController.getView();
         break;
       case ScreenType.LIST:
         break;
@@ -49,10 +53,11 @@ public class StageController implements ChangeListener<Number> {
     //Displaying the contents of the stage
     stage.show();
   }
-  public StageController(Stage stage, StageData data) {
+  public StageController(Stage stage, StageData data, StudentData studentData) {
     super();
     this.stage = stage;
     this.data = data;
+    this.studentData = studentData;
     this.refresh();
   }
   @Override

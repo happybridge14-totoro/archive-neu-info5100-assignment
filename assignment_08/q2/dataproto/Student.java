@@ -3,19 +3,14 @@ package q2.dataproto;
 public class Student {
   private String id;
   private String name;
-  private GenderType gender;
+  private String gender;
 
   public Student() {
     this.id = "";
     this.name = "";
   }
 
-  public Student(String id, String name, GenderType gender) {
-    this.id = id;
-    this.name = name;
-    this.gender = gender;
-  }
-  public void modifyData(String id, String name, GenderType gender) {
+  public Student(String id, String name, String gender) {
     this.id = id;
     this.name = name;
     this.gender = gender;
@@ -26,7 +21,7 @@ public class Student {
   public String getName() {
     return this.name;
   }
-  public GenderType getGender() {
+  public String getGender() {
     return this.gender;
   }
 }

@@ -14,7 +14,8 @@ public class Main extends Application {
    @Override
    public void start(Stage stage) {
       StageData stgData = new StageData();
-      stgData.getTypeProperty().addListener(new StageController(stage, stgData));
+      StudentData studentData = new StudentData();
+      stgData.getTypeProperty().addListener(new StageController(stage, stgData, studentData));
       //Creating a Grid Pane
       // GridPane gridPane = new GridPane();
       // Result result = new Result();
