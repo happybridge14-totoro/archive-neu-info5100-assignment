@@ -25,7 +25,8 @@ public class StageController implements ChangeListener<Number> {
     switch (this.data.getTypeValue()) {
       case ScreenType.MENU:
         stage.setTitle(MENU);
-        gridPane = new MenuPage();
+        MenuController menuController = new MenuController(data);
+        gridPane = menuController.getView();
         break;
       case ScreenType.DETAIL:
         break;
