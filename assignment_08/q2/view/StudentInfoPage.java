@@ -45,11 +45,11 @@ public class StudentInfoPage extends GridPane {
     this.add(back, 1, 7, 4, 1);
 
     idStr = new Label("ID: ");
-    idStr.getStyleClass().add("label");
+    idStr.getStyleClass().add("mylabel");
     nameStr = new Label("Name: ");
-    nameStr.getStyleClass().add("label");
+    nameStr.getStyleClass().add("mylabel");
     genderStr = new Label("Gender: ");
-    genderStr.getStyleClass().add("label");
+    genderStr.getStyleClass().add("mylabel");
     idInput = new TextField();
     idInput.getStyleClass().add("input");
     nameInput = new TextField();

@@ -15,11 +15,15 @@ public class StudentData {
     Iterator it = dataList.iterator();
     while(it.hasNext()){
       Student data = (Student)it.next();
-      if (data.getID().equals(id)) {
+      if (data.getId().equals(id)) {
         return false;
       }
     }
     dataList.add(new Student(id, name, gender));
     return true;
+  }
+  public Student[] getArrayData() {
+    Student[] ret = new Student[dataList.size()];
+    return dataList.toArray(ret);
   }
 }

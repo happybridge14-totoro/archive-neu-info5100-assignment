@@ -15,7 +15,7 @@ public class Student {
     this.name = name;
     this.gender = gender;
   }
-  public String getID() {
+  public String getId() {
     return this.id;
   }
   public String getName() {

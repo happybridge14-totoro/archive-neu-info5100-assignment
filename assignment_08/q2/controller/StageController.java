@@ -35,6 +35,9 @@ public class StageController implements ChangeListener<Number> {
         gridPane = detailController.getView();
         break;
       case ScreenType.LIST:
+        stage.setTitle(LIST);
+        BrowseController browseController = new BrowseController(data, studentData);
+        gridPane = browseController.getView();
         break;
       default:
         break;

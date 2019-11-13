@@ -16,6 +16,10 @@
   -fx-pref-height: 600px;
   -fx-pref-width: 400px;
 }
+.list {
+  /* -fx-pref-width: 400px; */
+  -fx-text-fill: black;
+}
 .btn {
   -fx-cursor: hand;
   -fx-text-fill: white;
@@ -33,10 +37,15 @@
 .btn:focused {
   -fx-background-insets: 0 0 -1 0, 0, 1, 2;
 }
-.label {
+.mylabel {
   -fx-font-size: 22px;
   -fx-text-fill: white;
 }
+.table {
+  -fx-text-fill: black;
+  -fx-size: 16px;
+}
+
 .error {
   -fx-font-size: 16px;
   -fx-text-fill: red;
