@@ -11,10 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-// import javafx.beans.property.StringProperty;
-// import javafx.beans.property.SimpleStringProperty;
-// import javafx.beans.value.ChangeListener;
-
 public class Main extends Application {
    @Override
    public void start(Stage stage) {
@@ -80,13 +76,14 @@ public class Main extends Application {
       gridPane.getStyleClass().add("panel");
       // Creating a scene object
       Scene scene = new Scene(gridPane);
-      String urlString = "q1/css/test.css";
+      String urlString = "q1/css/style.css";
       try {
-        urlString = getClass().getResource("css/test.css").toExternalForm();
+        urlString = getClass().getResource("css/style.css").toExternalForm();
       } catch(Exception e) {
         System.out.println(e);
       }
       scene.getStylesheets().add(urlString);
+      stage.setResizable(false);
       // Setting title to the Stage
       final String TITLE = "Calculator";
       stage.setTitle(TITLE);
